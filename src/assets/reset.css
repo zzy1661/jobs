@@ -3383,3 +3383,6 @@ a.text-dark:hover {
     width: 460px !important;
     max-width: 100%;
 }
+.pointer {
+    cursor: pointer;
+}

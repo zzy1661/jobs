@@ -12,30 +12,7 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
-            redirect: '/front',
-        }, {
-            path: '/front',
-            name: '',
-            component: Home,
-            children: [
-                {
-                    path: '',
-                    name: 'front',
-                    component: () => import(/* webpackChunkName: "front" */ './views/Front.vue')
-                }
-            ]
-        },
-        {
-            path: '/search',
-            component: Home,
-            children: [
-                {
-                    path: '',
-                    name: 'search',
-                    component: () => import(/* webpackChunkName: "search" */ './views/Search.vue')
-                }
-            ]
-
+            
         }
     ]
 })
