@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+  	<h1>cloud</h1>
+    <HelloWorld></HelloWorld>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from '@/components/HelloWorld.vue'
+console.log(HelloWorld)
 export default {
   name: 'app',
   components: {

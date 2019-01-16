@@ -2,9 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './plugins/element.js'
-import './plugins/request.js'
-import './assets/reset.css'
+import '../../plugins/element.js'
+import '../../plugins/request.js'
+import '../../assets/reset.css'
 
 Vue.config.productionTip = false
 

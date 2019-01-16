@@ -12,8 +12,8 @@
 </template>
 
 <script>
-    import Search from '@/views/Search.vue'
-    import Front from '@/views/Front.vue'
+    import Search from './Search.vue'
+    import Front from './Front.vue'
     export default {
         name: "home",
         data() {

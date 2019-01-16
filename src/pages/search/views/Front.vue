@@ -6,16 +6,16 @@
     <div class="px-4">
       <el-collapse v-model="activeName" accordion>
             <el-row class="w-100 py-2 mx-0 pr-3 bg-light" :gutter="10">
-                <el-col span="8"><div >职位名称</div></el-col>
-                <el-col span="6"><div >年薪</div></el-col>
-                <el-col span="10"><div >关键字</div></el-col>
+                <el-col :span="8"><div >职位名称</div></el-col>
+                <el-col :span="6"><div >年薪</div></el-col>
+                <el-col :span="10"><div >关键字</div></el-col>
             </el-row>
         <el-collapse-item name="1">
             <template slot="title">
                 <el-row class="w-100" :gutter="10">
-                    <el-col span="8"><div >职位名称</div></el-col>
-                <el-col span="6"><div >年薪</div></el-col>
-                <el-col span="10"><div >关键字</div></el-col>
+                    <el-col :span="8"><div >职位名称</div></el-col>
+                <el-col :span="6"><div >年薪</div></el-col>
+                <el-col :span="10"><div >关键字</div></el-col>
                 </el-row>
             </template>
             <div class="text-left px-4">
@@ -26,9 +26,9 @@
         <el-collapse-item name="2">
             <template slot="title">
                 <el-row class="w-100" :gutter="10">
-                    <el-col span="8"><div >职位名称</div></el-col>
-                <el-col span="6"><div >年薪</div></el-col>
-                <el-col span="10"><div >关键字</div></el-col>
+                    <el-col :span="8"><div >职位名称</div></el-col>
+                <el-col :span="6"><div >年薪</div></el-col>
+                <el-col :span="10"><div >关键字</div></el-col>
                 </el-row>
             </template>
             <div class="text-left px-4">
