@@ -263,11 +263,11 @@
 					title: {
 						text: '三大框架热度对比',
 						subtext: '数据来源：智联卓聘',
-						left: 'center',
-						top: 20,
-						textStyle: {
-							color: '#ccc'
-						}
+//						left: 'center',
+//						top: 20,
+//						textStyle: {
+//							color: '#ccc'
+//						}
 					},
 
 					tooltip: {
