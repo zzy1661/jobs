@@ -1,25 +1,21 @@
 <template>
 	<div class="px-4">
-		<el-form ref="form" :model="form" label-width="80px">
-			<el-form-item label="地点">
-				<el-radio-group v-model="form.location">
-					<el-radio label="全国" value="489"></el-radio>
-					<el-radio label="北京" value="530"></el-radio>
-					<el-radio label="上海" value="538"></el-radio>
-					<el-radio label="广州" value="763"></el-radio>
-					<el-radio label="深圳" value="765"></el-radio>
-					<el-radio label="武汉" value="736"></el-radio>
-					<el-radio label="南京" value="635"></el-radio>
-					<el-radio label="杭州" value="653"></el-radio>
-					<el-radio label="苏州" value="639"></el-radio>
-					<el-radio label="无锡" value="636"></el-radio>
-					<el-radio label="合肥" value="664"></el-radio>
+		<el-form ref="form" :model="form" label-width="80px" class="search-form">
+			<el-form-item label="地点" class="text-left">
+				<el-radio-group v-model="form.location" class="radio-group">
+					<el-radio class="mr-4 ml-0" v-for="item in locations" :label="item.name" :value="item.value" :key="item.value"></el-radio>
 				</el-radio-group>
 			</el-form-item>
-			<el-form-item label="职位">
-				<el-input v-model="form.job"></el-input>
-			</el-form-item>
-			<div class="d-flex justify-content-between flex-wrap">
+            <div class="media justify-content-between flex-wrap">
+                <el-form-item label="职位" class="media-body job-input">
+                    <el-input v-model="form.job"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit">查询</el-button>
+                    <el-button>重置</el-button>
+                </el-form-item>
+            </div>
+			<div class="d-flex flex-wrap">
 				<el-form-item label="年薪">
 					<div class="d-inline-block w-60">
 						<el-input v-model="form.minSalary"></el-input>
@@ -39,31 +35,48 @@
 						<el-option label="最近一月" value="30"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" @click="onSubmit">查询</el-button>
-					<el-button>重置</el-button>
-				</el-form-item>
 			</div>
 		</el-form>
 	</div>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				form: {
-					job: '',
-					location: '',
-					minSalary: '',
-					maxSalary: '',
-					time: ''
-				}
-			}
-		},
-		methods: {
-			onSubmit() {
-				console.log('submit!');
-			}
-		}
-	}
+export default {
+  data() {
+    return {
+      locations: [
+        { name: "全国", value: "489" },
+        { name: "北京", value: "530" },
+        { name: "上海", value: "538" },
+        { name: "广州", value: "763" },
+        { name: "深圳", value: "765" },
+        { name: "武汉", value: "736" },
+        { name: "南京", value: "635" },
+        { name: "杭州", value: "653" },
+        { name: "苏州", value: "639" },
+        { name: "无锡", value: "636" },
+        { name: "合肥", value: "664" }
+      ],
+      form: {
+        job: "",
+        location: "",
+        minSalary: "",
+        maxSalary: "",
+        time: ""
+      }
+    };
+  },
+  methods: {
+    onSubmit() {
+      console.log("submit!");
+    }
+  }
+};
 </script>
+<style>
+    .search-form label {
+        margin-bottom: 0;
+    }
+    .job-input {
+        min-width: 300px;
+    }
+</style>
