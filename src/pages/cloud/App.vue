@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" class="py-2">
 		<h1>前端职位要求概览</h1>
 		<Cloud></Cloud>
 	</div>
