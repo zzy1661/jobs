@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 module.exports = {
 	pages: {
 		cloud: {
@@ -31,5 +32,15 @@ module.exports = {
 		// 并且如果找不到的话，就回退到 `public/index.html`。
 		// 输出文件名会被推导为 `subpage.html`。
 		//  subpage: 'src/subpage/main.js'
+	},
+	configureWebpack: {
+		plugins: [      
+			new webpack.ProvidePlugin({        
+				$: "jquery",
+				        jQuery: "jquery",
+				        "window.jQuery": "jquery"      
+			})    
+		]
 	}
+
 }
