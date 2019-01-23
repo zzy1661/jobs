@@ -3978,7 +3978,9 @@ a.text-dark:hover {
 .invisible {
 	visibility: hidden!important
 }
-
+.w-60 {
+	width: 60px;
+}
 .w-xs {
 	min-width: 50px;
 }

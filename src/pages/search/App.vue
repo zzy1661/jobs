@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="py-2">
   	<h1>Job Search</h1>
     <router-view></router-view>
   </div>

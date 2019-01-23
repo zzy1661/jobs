@@ -1,16 +1,19 @@
 <template>
     <div class="searchPage">
-    aaa
+    	<SearchForm></SearchForm>
     </div>
 </template>
 <script>
-
+import SearchForm from '@/components/SearchForm.vue';
 export default {
     name: "search",
     data() {
         return {
 
         };
+    },
+    components: {
+    	SearchForm,
     }
 };    
 </script>
