@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  	<h1>search</h1>
+  	<h1>Job Search</h1>
     <router-view></router-view>
   </div>
 </template>

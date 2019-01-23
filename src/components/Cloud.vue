@@ -1,11 +1,26 @@
 <template>
-	<div class="d-flex justify-content-around">
-		<canvas id="canvas" width="900" height="760"></canvas>
-		<div class="d-flex flex-column justify-content-between">
-			<div id="line" :style="{width: '300px', height: '300px'}"></div>
-			<div id="pie" :style="{width: '300px', height: '300px'}"></div>
+	<el-row type="flex" class="flex-wrap py-4">
+		<el-col :span="24" :xl="24" :sm="24" :md="24" :lg="18" class="order-2 order-xl-1">
+			<canvas class="d-block mx-auto" id="canvas" width="890" height="760"></canvas>
+		</el-col>
+		<el-col :span="24" :xl="24" :sm="24" :md="24"  :lg="6" class="d-flex flex-wrap order-1 order-xl-2 mb-4 mb-xl-0">
+				<el-col :span="12" :lg="24" class="d-flex">
+					<div id="line" :style="{width: '280px', height: '280px'}" class="mx-auto"></div>
+				</el-col>
+				<el-col :span="12" :lg="24" class="d-flex">
+					<div id="pie" :style="{width: '280px', height: '280px'}" class="mx-auto align-self-end"></div>
+				</el-col>
+		</el-col>
+	</el-row>
+	<!--<div class="">
+		<div >
+			<canvas id="canvas" width="890" height="760"></canvas>
 		</div>
-	</div>
+		<div >
+			<div id="line" :style="{width: '280px', height: '280px'}"></div>
+			<div id="pie" :style="{width: '280px', height: '280px'}"></div>
+		</div>
+	</div>-->
 </template>
 
 <script>
