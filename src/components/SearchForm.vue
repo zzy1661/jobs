@@ -43,19 +43,6 @@
 export default {
   data() {
     return {
-      locations: [
-        { name: "全国", value: "489" },
-        { name: "北京", value: "530" },
-        { name: "上海", value: "538" },
-        { name: "广州", value: "763" },
-        { name: "深圳", value: "765" },
-        { name: "武汉", value: "736" },
-        { name: "南京", value: "635" },
-        { name: "杭州", value: "653" },
-        { name: "苏州", value: "639" },
-        { name: "无锡", value: "636" },
-        { name: "合肥", value: "664" }
-      ],
       form: {
         job: "",
         location: "",
@@ -69,6 +56,11 @@ export default {
     onSubmit() {
       console.log("submit!");
     }
+  },
+  computed: {
+      locations() {
+          return this.$store.state.locations
+      }
   }
 };
 </script>

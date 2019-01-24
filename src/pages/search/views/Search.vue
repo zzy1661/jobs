@@ -49,7 +49,9 @@ import SearchForm from "@/components/SearchForm.vue";
 export default {
   name: "search",
   data() {
-    return {};
+    return {
+        activeName:''
+    };
   },
   components: {
     SearchForm
