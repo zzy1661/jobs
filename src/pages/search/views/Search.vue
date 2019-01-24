@@ -1,8 +1,8 @@
 <template>
     <div class="searchPage">
-        <SearchForm v-model="params" ref="formComponent"></SearchForm>
+        <SearchForm v-model="params" ref="formComponent" @search="searchJobs" ></SearchForm>
         <div class="text-left ml-5 mb-4">
-            <el-tag class="mr-4 pointer" v-for="item in options" v-show="item.fields.every(f=>!!params[f])" :type="item.type" :key="item.fields[0]" closable @close="onTagClose(item)">{{item.name}}</el-tag>
+            <el-tag class="mr-4 pointer" v-for="item in options" v-show="item.name" :type="item.type" :key="item.fields[0]" closable @close="onTagClose(item)">{{item.name}}</el-tag>
         </div>
         <div class="px-4">
             <el-collapse v-model="activeName" accordion @change="onCollapseChange">
@@ -24,7 +24,10 @@
                     </el-col>
                 </el-row>
                 <job-collapse :jobs="jobs"></job-collapse>
-                <div class="pointer" v-if="hasMore" @click="getMore">
+                <div v-if="isLoading">
+                    <i class="el-icon-loading h3 mb-0"></i>
+                </div>
+                <div class="pointer" v-if="hasMore&&!isLoading" @click="getMore">
                     <i class="el-icon-caret-bottom h3 mb-0 text-primary"></i>
                 </div>
             </el-collapse>
@@ -34,26 +37,46 @@
 <script>
 import SearchForm from "@/components/SearchForm.vue";
 import JobCollapse from "@/components/JobCollapse.vue";
+import jobMixin from "../mixin/jobMixin.js";
 
 export default {
     name: "search",
     data() {
         return {
             params: {},
-            jobs: [],
-            activeName: -1,
-            hasMore: false,
-            pagenation: {
-                pageIndex: 1
-                // pageSize: 5 对方接口该参数无效
-            }
         };
     },
+    mixins: [jobMixin],
+    mounted() {
+        this.searchJobs();
+    },
     methods: {
-        onCollapseChange(index) {},
+        searchJobs() {
+            this.jobs = [];
+            this.getJobs(this.form);
+        },
+        getMore() {
+            this.pagenation.pageIndex++;
+            this.getJobs(this.form);
+        },
         onTagClose(tag) {
-            this.$refs.formComponent.removeConditions(tag.fields)
-        }
+            this.$refs.formComponent.removeConditions(tag.fields);
+        },
+        getSalaryTxt(min,max) {
+            if(min<=0&&max<=0) {
+                return ''
+            }
+            if(min<0&&max>0) {
+                return `0-${max}万`
+            }
+            if(min>0&&max<min) {
+                return `${min}万以上`
+            }
+            if(min>0&&max>min) {
+                return `${min}-${max}万`
+            }
+        },
+    
     },
     computed: {
         form() {
@@ -64,30 +87,30 @@ export default {
             };
         },
         options() {
-           const arr =  [
+            const arr = [
                 {
                     name: this.params.Q,
                     type: "",
-                    fields: ['Q'],
+                    fields: ["Q"]
                 },
                 {
                     name: this.params.locationName,
                     type: "success",
-                    fields: ['JobLocation']
+                    fields: ["JobLocation"]
                 },
                 {
-                    name: `${this.params.AnnualSalaryMin}-${this.params.AnnualSalaryMax}万`,
-                    type: "info",  
-                    fields: ['AnnualSalaryMin','AnnualSalaryMax']                  
+                    name: this.getSalaryTxt(this.params.AnnualSalaryMin,this.params.AnnualSalaryMax),
+                    type: "info",
+                    fields: ["AnnualSalaryMin", "AnnualSalaryMax"]
                 },
                 {
                     name: this.params.timeName,
-                    type: 'danger',
-                    fields: ['ReleaseDate']
+                    type: "danger",
+                    fields: ["ReleaseDate"]
                 }
             ];
             return arr;
-        } ,
+        }
     },
     components: {
         SearchForm,

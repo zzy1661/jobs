@@ -7,12 +7,18 @@ export default {
             pagenation: {
                 pageIndex: 1
                 // pageSize: 5 对方接口该参数无效
-            }
+            },
+            isLoading: false
         };
     },
     methods: {
         getJobs(param) {
+            if(this.isLoading) {
+                return ;
+            }
+            this.isLoading = true;
             this.jsonRequest.post("/search", param).then(res => {
+                this.isLoading = false;
                 const data = res.data;
                 if (data.code === "000000") {
                     this.jobs = this.jobs.concat(
@@ -33,10 +39,6 @@ export default {
                         data.body.PageCount > this.pagenation.pageIndex;
                 }
             });
-        },
-        getMore() {
-            this.pagenation.pageIndex++;
-            this.getFrontJobs();
         },
         getDetail(job) {
             if (job.isGettingDetail) {

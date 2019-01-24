@@ -16,7 +16,7 @@ export default new Vuex.Store({
         ReleaseDate: '',
     },
     locations: [
-        { name: "全国", value: "489" },
+        { name: "全国", value: "" },
         { name: "北京", value: "530" },
         { name: "上海", value: "538" },
         { name: "广州", value: "763" },

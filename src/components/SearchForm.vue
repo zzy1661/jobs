@@ -1,6 +1,6 @@
 <template>
     <div class="px-4">
-        <el-form ref="form" :model="form" label-width="80px" class="search-form">
+        <el-form label-width="80px" class="search-form">
             <el-form-item label="地点" class="text-left">
                 <el-radio-group class="radio-group" v-model="form.JobLocation">
                     <el-radio class="mr-4 ml-0" v-for="item in locations" :label="item.value" :key="item.value">{{item.name}}</el-radio>
@@ -11,8 +11,8 @@
                     <el-input v-model.lazy="form.Q"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">查询</el-button>
-                    <el-button>重置</el-button>
+                    <el-button type="primary" @click="search">查询</el-button>
+                    <el-button @click="reset">重置</el-button>
                 </el-form-item>
             </div>
             <div class="d-flex flex-wrap">
@@ -40,7 +40,7 @@ export default {
     data() {
         return {
             timeOptions: [
-                { name: "不限", value: "0" },
+                { name: "不限", value: "" },
                 { name: "今天", value: "1" },
                 { name: "最近三天", value: "3" },
                 { name: "最近一周", value: "7" },
@@ -57,11 +57,21 @@ export default {
         };
     },
     mounted() {
-        this.form.JobLocation = this.locations[0].vlaue;
+        this.form.JobLocation = this.locations[0].value;
     },
     methods: {
-        onSubmit() {
-            console.log("submit!");
+        search() {
+            this.$emit('search')
+        },
+        reset() {
+            this.form = {
+                Q: "",
+                JobLocation: this.locations[0].value,
+                AnnualSalaryMin: "",
+                AnnualSalaryMax: "",
+                ReleaseDate: "",
+                
+            }
         },
         removeConditions(fields) {
             fields.forEach(f => {
@@ -88,15 +98,21 @@ export default {
                 if (isNaN(newForm.AnnualSalaryMax)) {
                     newForm.AnnualSalaryMax = "";
                 }
-                let timeName,locationName = '';
+                if(newForm.AnnualSalaryMin&&newForm.AnnualSalaryMax&&newForm.AnnualSalaryMax<newForm.AnnualSalaryMin) {
+                    newForm.AnnualSalaryMin = "";
+                }
+                let params = {...newForm};
+                params.AnnualSalaryMin = newForm.AnnualSalaryMin||-1;
+                params.AnnualSalaryMax = newForm.AnnualSalaryMax || -1;
+                params.timeName = params.locationName = '';
                 if (newForm.ReleaseDate) {
-                    timeName = this.timeOptions.filter(
+                    params.timeName = this.timeOptions.filter(
                         item => item.value == newForm.ReleaseDate
                     )[0].name;
                 }
                 const location = this.locations.filter(lo=>lo.value==newForm.JobLocation)[0];
-                locationName = location && location.name;
-                this.$emit("input", {...newForm,timeName,locationName});
+                params.locationName = location && location.name;
+                this.$emit("input", params);
             }
         }
     }

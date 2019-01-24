@@ -23,7 +23,10 @@
                     </el-col>
                 </el-row>
                 <job-collapse :jobs="jobs"></job-collapse>
-                <div class="pointer" v-if="hasMore" @click="getMore">
+                <div v-if="isLoading">
+                    <i class="el-icon-loading h3 mb-0"></i>
+                </div>
+                <div class="pointer" v-if="hasMore&&!isLoading" @click="getMore">
                     <i class="el-icon-caret-bottom h3 mb-0 text-primary"></i>
                 </div>
             </el-collapse>
@@ -35,17 +38,6 @@ import JobCollapse from "@/components/JobCollapse.vue";
 import jobMixin from '../mixin/jobMixin.js';
 export default {
     name: "front",
-    data() {
-        return {
-            jobs: [],
-            activeName: -1,
-            hasMore: false,
-            pagenation: {
-                pageIndex: 1
-                // pageSize: 5 对方接口该参数无效
-            }
-        };
-    },
     mixins: [jobMixin],
     mounted() {
         this.getFrontJobs();
