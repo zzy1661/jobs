@@ -27,7 +27,13 @@
                         <template slot="title">
                             <el-row class="w-100" :gutter="10">
                                 <el-col :span="5">
-                                    <div>{{job.JobTitle}}</div>
+                                    <div>
+                                        {{job.JobTitle}}
+                                        <a class="text-primary small px-1" target="blank" :href="`https://www.highpin.cn/job/b${job.JobID}.html`">
+                                            详情
+                                            <i class="el-icon-info"></i>
+                                        </a>
+                                    </div>
                                 </el-col>
                                 <el-col :span="2">
                                     <div>{{job.AnnualSalaryMin}} - {{job.AnnualSalaryMax}}万</div>
@@ -39,7 +45,7 @@
                                     <div>{{job.PublishDate}}</div>
                                 </el-col>
                                 <el-col :span="8">
-                                    <a class="text-primary" v-if="job.keywords===null">点击获取关键字</a>
+                                    <a class="text-primary" v-if="job.keywords===null">提取关键字</a>
                                     <span v-else>{{job.keywords.join(',')}}</span>
                                 </el-col>
                             </el-row>
@@ -147,7 +153,7 @@ export default {
         },
         onCollapseChange(index) {
             const job = this.jobs[index];
-            if (job) {
+            if (job && !job.Responsibility) {
                 this.getDetail(job);
             }
         },
