@@ -1,7 +1,7 @@
 <template>
     <div class="frontPage">
         <div class="d-flex px-4 mb-4">
-            <el-tag class="mr-4 pointer" v-for="item in options" :key="item.name">{{item.name}}</el-tag>
+            <el-tag class="mr-4 pointer" v-for="item in options" :type="item.type" :key="item.name">{{item.name}}</el-tag>
         </div>
         <div class="px-4">
             <el-collapse v-model="activeName" accordion @change="onCollapseChange">

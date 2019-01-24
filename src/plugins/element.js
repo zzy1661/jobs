@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Button, Table, TableColumn, Tabs, TabPane, Tag, Collapse, CollapseItem, 
     Row, Col, Container, Form, FormItem, Input, Select, Option, TimePicker, Switch, 
-    CheckboxGroup, Checkbox, Radio, RadioGroup} from 'element-ui'
+    CheckboxGroup, Checkbox, Radio, RadioGroup, InputNumber} from 'element-ui'
 
 Vue.use(Button)
 Vue.use(Table)
@@ -25,3 +25,4 @@ Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
 Vue.use(Radio)
 Vue.use(RadioGroup)
+Vue.use(InputNumber)

@@ -1,74 +1,104 @@
 <template>
-	<div class="px-4">
-		<el-form ref="form" :model="form" label-width="80px" class="search-form">
-			<el-form-item label="地点" class="text-left">
-				<el-radio-group v-model="form.location" class="radio-group">
-					<el-radio class="mr-4 ml-0" v-for="item in locations" :label="item.name" :value="item.value" :key="item.value"></el-radio>
-				</el-radio-group>
-			</el-form-item>
+    <div class="px-4">
+        <el-form ref="form" :model="form" label-width="80px" class="search-form">
+            <el-form-item label="地点" class="text-left">
+                <el-radio-group class="radio-group" v-model="form.JobLocation">
+                    <el-radio class="mr-4 ml-0" v-for="item in locations" :label="item.value" :key="item.value">{{item.name}}</el-radio>
+                </el-radio-group>
+            </el-form-item>
             <div class="media justify-content-between flex-wrap">
                 <el-form-item label="职位" class="media-body job-input">
-                    <el-input v-model="form.job"></el-input>
+                    <el-input v-model.lazy="form.Q"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">查询</el-button>
                     <el-button>重置</el-button>
                 </el-form-item>
             </div>
-			<div class="d-flex flex-wrap">
-				<el-form-item label="年薪">
-					<div class="d-inline-block w-60">
-						<el-input v-model="form.minSalary"></el-input>
-					</div>
-					万——
-					<div class="d-inline-block w-60">
-						<el-input v-model="form.maxSalary"></el-input>
-					</div>
-					万
-				</el-form-item>
-				<el-form-item label="时间">
-					<el-select v-model="form.time" placeholder="请选择发布时间">
-						<el-option label="不限" value="0"></el-option>
-						<el-option label="今天" value="1"></el-option>
-						<el-option label="最近三天" value="3"></el-option>
-						<el-option label="最近一周" value="7"></el-option>
-						<el-option label="最近一月" value="30"></el-option>
-					</el-select>
-				</el-form-item>
-			</div>
-		</el-form>
-	</div>
+            <div class="d-flex flex-wrap">
+                <el-form-item label="年薪">
+                    <div class="d-inline-block">
+                        <input class="el-input__inner w-60" v-model="form.AnnualSalaryMin"></input>
+                    </div>
+                    万——
+                    <div class="d-inline-block">
+                        <input class="el-input__inner w-60" v-model="form.AnnualSalaryMax"></input>
+                    </div>
+                    万
+                </el-form-item>
+                <el-form-item label="时间">
+                    <el-select v-model="form.ReleaseDate" placeholder="请选择发布时间">
+                        <el-option v-for="item in timeOptions" :label="item.name" :value="item.value"  :key="item.value"></el-option>
+                    </el-select>
+                </el-form-item>
+            </div>
+        </el-form>
+    </div>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      form: {
-        job: "",
-        location: "",
-        minSalary: "",
-        maxSalary: "",
-        time: ""
-      }
-    };
-  },
-  methods: {
-    onSubmit() {
-      console.log("submit!");
+    data() {
+        return {
+            timeOptions: [
+                { name: "不限", value: "0" },
+                { name: "今天", value: "1" },
+                { name: "最近三天", value: "3" },
+                { name: "最近一周", value: "7" },
+                { name: "最近一月", value: "30" }
+            ],
+            form: {
+                Q: '',
+                JobLocation: '',
+                AnnualSalaryMin: '',
+                AnnualSalaryMax: '',
+                ReleaseDate: '',
+                timeName:''
+            }
+        };
+    },
+    methods: {
+        onSubmit() {
+            console.log("submit!");
+        },
+        removeConditions(fields) {
+            fields.forEach(f=>{
+                this.form[f]='';
+            })
+        }
+    },
+    computed: {
+        locations() {
+            return this.$store.state.locations;
+        }
+    },
+    watch: {
+        form: {
+            deep: true,
+            handler(newForm, oldForm) {
+                if (isNaN(newForm.AnnualSalaryMin)) {
+                    newForm.AnnualSalaryMin = "";
+                }
+                if (isNaN(newForm.AnnualSalaryMax)) {
+                    newForm.AnnualSalaryMax = "";
+                }
+                if(newForm.ReleaseDate) {
+                    newForm.timeName = this.timeOptions.filter(item=>item.value==newForm.ReleaseDate)[0].name;
+                }else {
+                    newForm.timeName = '';
+                }
+                window.clearTimeout(this.emitTimeout)
+                    this.$emit("input", newForm);
+                
+            }
+        }
     }
-  },
-  computed: {
-      locations() {
-          return this.$store.state.locations
-      }
-  }
 };
 </script>
 <style>
-    .search-form label {
-        margin-bottom: 0;
-    }
-    .job-input {
-        min-width: 300px;
-    }
+.search-form label {
+    margin-bottom: 0;
+}
+.job-input {
+    min-width: 300px;
+}
 </style>
