@@ -22,48 +22,7 @@
                         <div>关键字</div>
                     </el-col>
                 </el-row>
-                <template v-if="jobs.length>0">
-                    <el-collapse-item v-for="job,index in jobs" :key="job.JobID" :name="index">
-                        <template slot="title">
-                            <el-row class="w-100" :gutter="10">
-                                <el-col :span="5">
-                                    <div>
-                                        {{job.JobTitle}}
-                                        <a class="text-primary small px-1" target="blank" :href="`https://www.highpin.cn/job/b${job.JobID}.html`">
-                                            详情
-                                            <i class="el-icon-info"></i>
-                                        </a>
-                                    </div>
-                                </el-col>
-                                <el-col :span="2">
-                                    <div>{{job.AnnualSalaryMin}} - {{job.AnnualSalaryMax}}万</div>
-                                </el-col>
-                                <el-col :span="6">
-                                    <div>{{job.CompanyName}}</div>
-                                </el-col>
-                                <el-col :span="3">
-                                    <div>{{job.PublishDate}}</div>
-                                </el-col>
-                                <el-col :span="8">
-                                    <a class="text-primary" v-if="job.keywords===null">提取关键字</a>
-                                    <span v-else>{{job.keywords.join(',')}}</span>
-                                </el-col>
-                            </el-row>
-                        </template>
-                        <div class="text-left px-4" v-if="job.Responsibility">
-                            <div v-html="job.Responsibility"></div>
-                        </div>
-                        <div class="text-center px-4" v-if="!job.Responsibility && !job.isGettingDetail">
-                            暂无数据
-                        </div>
-                        <div class="text-center px-4 h3 mb-0" v-if="job.isGettingDetail">
-                            <i class="el-icon-loading"></i>
-                        </div>
-                    </el-collapse-item>
-                </template>
-                <div class="py-3" v-else>
-                    暂无数据
-                </div>
+                <job-collapse :jobs="jobs"></job-collapse>
                 <div class="pointer" v-if="hasMore" @click="getMore">
                     <i class="el-icon-caret-bottom h3 mb-0 text-primary"></i>
                 </div>
@@ -72,27 +31,11 @@
     </div>
 </template>
 <script>
+import JobCollapse from "@/components/JobCollapse.vue";
 export default {
     name: "front",
     data() {
         return {
-            options: [
-                {
-                    name: "前端",
-                    type: "",
-                    field: ""
-                },
-                {
-                    name: "上海",
-                    type: "success",
-                    field: ""
-                },
-                {
-                    name: "20-30万",
-                    type: "info",
-                    field: ""
-                }
-            ],
             jobs: [],
             activeName: -1,
             hasMore: false,
@@ -172,14 +115,16 @@ export default {
     },
     computed: {
         frontParams() {
+            const locationName = '上海';
             const JobLocation = this.$store.state.locations.filter(
-                i => i.name === "上海"
+                i => i.name === locationName
             )[0].value;
             return {
                 Q: "前端",
                 AnnualSalaryMin: 20,
                 AnnualSalaryMax: 30,
-                JobLocation
+                JobLocation,
+                locationName
             };
         },
         form() {
@@ -188,7 +133,26 @@ export default {
                 ...this.pagenation,
                 ...this.frontParams
             };
-        }
+        },
+        options() {
+            return [
+                {
+                    name: this.frontParams.Q,
+                    type: "",
+                },
+                {
+                    name: this.frontParams.locationName,
+                    type: "success",
+                },
+                {
+                    name: `${this.frontParams.AnnualSalaryMin}-${this.frontParams.AnnualSalaryMax}万`,
+                    type: "info",                    
+                }
+            ]
+        } ,
+    },
+    components: {
+        JobCollapse,
     }
 };
 </script>
