@@ -73,7 +73,7 @@ export default {
                 {
                     name: this.params.locationName,
                     type: "success",
-                    fields: ['locationName']
+                    fields: ['JobLocation']
                 },
                 {
                     name: `${this.params.AnnualSalaryMin}-${this.params.AnnualSalaryMax}万`,

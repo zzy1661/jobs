@@ -28,7 +28,7 @@
                 </el-form-item>
                 <el-form-item label="时间">
                     <el-select v-model="form.ReleaseDate" placeholder="请选择发布时间">
-                        <el-option v-for="item in timeOptions" :label="item.name" :value="item.value"  :key="item.value"></el-option>
+                        <el-option v-for="item in timeOptions" :label="item.name" :value="item.value" :key="item.value"></el-option>
                     </el-select>
                 </el-form-item>
             </div>
@@ -47,23 +47,30 @@ export default {
                 { name: "最近一月", value: "30" }
             ],
             form: {
-                Q: '',
-                JobLocation: '',
-                AnnualSalaryMin: '',
-                AnnualSalaryMax: '',
-                ReleaseDate: '',
-                timeName:''
+                Q: "",
+                JobLocation: "",
+                AnnualSalaryMin: "",
+                AnnualSalaryMax: "",
+                ReleaseDate: "",
+                timeName: ""
             }
         };
+    },
+    mounted() {
+        this.form.JobLocation = this.locations[0].vlaue;
     },
     methods: {
         onSubmit() {
             console.log("submit!");
         },
         removeConditions(fields) {
-            fields.forEach(f=>{
-                this.form[f]='';
-            })
+            fields.forEach(f => {
+                if (f === "JobLocation") {
+                    this.form.JobLocation = this.locations[0].vlaue;
+                } else {
+                    this.form[f] = "";
+                }
+            });
         }
     },
     computed: {
@@ -81,14 +88,15 @@ export default {
                 if (isNaN(newForm.AnnualSalaryMax)) {
                     newForm.AnnualSalaryMax = "";
                 }
-                if(newForm.ReleaseDate) {
-                    newForm.timeName = this.timeOptions.filter(item=>item.value==newForm.ReleaseDate)[0].name;
-                }else {
-                    newForm.timeName = '';
+                let timeName,locationName = '';
+                if (newForm.ReleaseDate) {
+                    timeName = this.timeOptions.filter(
+                        item => item.value == newForm.ReleaseDate
+                    )[0].name;
                 }
-                window.clearTimeout(this.emitTimeout)
-                    this.$emit("input", newForm);
-                
+                const location = this.locations.filter(lo=>lo.value==newForm.JobLocation)[0];
+                locationName = location && location.name;
+                this.$emit("input", {...newForm,timeName,locationName});
             }
         }
     }
