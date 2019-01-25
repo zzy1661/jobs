@@ -4,26 +4,23 @@
         <div class="text-left ml-5 mb-4">
             <el-tag class="mr-4 pointer" v-for="item in options" v-show="item.name" :type="item.type" :key="item.fields[0]" closable @close="onTagClose(item)">{{item.name}}</el-tag>
         </div>
-        <div class="px-4">
+        <div class="px-sm-4">
             <el-collapse v-model="activeName" accordion @change="onCollapseChange">
                 <el-row class="w-100 py-2 mx-0 pr-3 bg-light" :gutter="10">
-                    <el-col :span="5">
+                    <el-col :span="10" :md="8">
                         <div>职位名称</div>
                     </el-col>
-                    <el-col :span="2">
+                    <el-col :span="4" class="hidden-sm-and-down">
                         <div>年薪</div>
                     </el-col>
-                    <el-col :span="6">
+                    <el-col :span="10" :md="8">
                         <div>公司</div>
                     </el-col>
-                    <el-col :span="3">
+                    <el-col :span="4">
                         <div>发布日期</div>
                     </el-col>
-                    <el-col :span="8">
-                        <div>关键字</div>
-                    </el-col>
                 </el-row>
-                <job-collapse :jobs="jobs"></job-collapse>
+                <job-collapse :jobs="jobs" :showKeywords="false"></job-collapse>
                 <div v-if="isLoading">
                     <i class="el-icon-loading h3 mb-0"></i>
                 </div>

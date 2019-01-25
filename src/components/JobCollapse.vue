@@ -2,9 +2,35 @@
     <div>
         <template v-if="jobs.length>0">
         <el-collapse-item v-for="job,index in jobs" :key="job.JobID" :name="index">
-            <template slot="title">
+            <template slot="title" v-if="showKeywords">
+                <el-row class="w-100" :gutter="0">
+                    <el-col :xs="20" :sm="11" :md="10" :xl="6">
+                        <div>
+                            {{job.JobTitle}}
+                            <a class="text-primary small" target="blank" :href="`https://www.highpin.cn/job/b${job.JobID}.html`">
+                                <span class="hidden-xs-only px-1">详情</span>
+                                <i class="el-icon-info"></i>
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :xs="4" :sm="2">
+                        <div>{{job.AnnualSalaryMin}} - {{job.AnnualSalaryMax}}<span class="hidden-xs-only">万</span></div>
+                    </el-col>
+                    <el-col :sm="11" :md="10" :xl="6" class="hidden-xs-only">
+                        <div>{{job.CompanyName}}</div>
+                    </el-col>
+                    <el-col :span="2" class="hidden-sm-and-down">
+                        <div>{{job.PublishDate}}</div>
+                    </el-col>
+                    <el-col :span="8"  class="hidden-lg-and-down">
+                        <a class="text-primary" v-if="job.keywords===null">提取关键字</a>
+                        <span v-else>{{job.keywords.join(',')||'无'}}</span>
+                    </el-col>
+                </el-row>
+            </template>
+            <template slot="title" v-else>
                 <el-row class="w-100" :gutter="10">
-                    <el-col :span="5">
+                    <el-col :span="10" :md="8">
                         <div>
                             {{job.JobTitle}}
                             <a class="text-primary small px-1" target="blank" :href="`https://www.highpin.cn/job/b${job.JobID}.html`">
@@ -13,18 +39,14 @@
                             </a>
                         </div>
                     </el-col>
-                    <el-col :span="2">
+                    <el-col :span="4" class="hidden-sm-and-down">
                         <div>{{job.AnnualSalaryMin}} - {{job.AnnualSalaryMax}}万</div>
                     </el-col>
-                    <el-col :span="6">
+                    <el-col :span="10" :md="8">
                         <div>{{job.CompanyName}}</div>
                     </el-col>
-                    <el-col :span="3">
+                    <el-col :span="4" >
                         <div>{{job.PublishDate}}</div>
-                    </el-col>
-                    <el-col :span="8">
-                        <a class="text-primary" v-if="job.keywords===null">提取关键字</a>
-                        <span v-else>{{job.keywords.join(',')}}</span>
                     </el-col>
                 </el-row>
             </template>
@@ -51,6 +73,10 @@ export default {
         jobs: {
             type: Array,
             required: true
+        },
+        showKeywords: {
+            type: Boolean,
+            default: true
         }
     }
 };

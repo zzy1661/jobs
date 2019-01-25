@@ -3,22 +3,22 @@
         <div class="d-flex px-4 mb-4">
             <el-tag class="mr-4 pointer" v-for="item in options" :type="item.type" :key="item.name">{{item.name}}</el-tag>
         </div>
-        <div class="px-4">
+        <div class="px-sm-4">
             <el-collapse v-model="activeName" accordion @change="onCollapseChange">
-                <el-row class="w-100 py-2 mx-0 pr-3 bg-light" :gutter="10">
-                    <el-col :span="5">
+                <el-row class="w-100 py-2 mx-0 pr-3 bg-light" :gutter="0">
+                    <el-col :xs="20" :sm="11" :md="10" :xl="6">
                         <div>职位名称</div>
                     </el-col>
-                    <el-col :span="2">
+                    <el-col :xs="4" :sm="2">
                         <div>年薪</div>
                     </el-col>
-                    <el-col :span="6">
+                    <el-col :sm="11" :md="10" :xl="6" class="hidden-xs-only">
                         <div>公司</div>
                     </el-col>
-                    <el-col :span="3">
+                    <el-col :span="2"  class="hidden-sm-and-down">
                         <div>发布日期</div>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span="8"  class="hidden-lg-and-down">
                         <div>关键字</div>
                     </el-col>
                 </el-row>

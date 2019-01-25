@@ -4021,7 +4021,9 @@ a.text-dark:hover {
 	width: 460px !important;
 	max-width: 100%;
 }
-
+.w-l360 {
+    min-width: 360px;
+}
 .pointer {
 	cursor: pointer;
 }
