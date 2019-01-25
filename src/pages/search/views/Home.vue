@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         onTabClick() {
-            this.$router.push({ name: this.activeTab });
+            this.$router.push({ name: 'home',params:{name:this.activeTab} });
         },
         setPanel() {
             var name = this.$route.params.name;

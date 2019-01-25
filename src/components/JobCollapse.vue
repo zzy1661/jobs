@@ -29,23 +29,23 @@
                 </el-row>
             </template>
             <template slot="title" v-else>
-                <el-row class="w-100" :gutter="10">
-                    <el-col :span="10" :md="8">
+                <el-row class="w-100" :gutter="0">
+                    <el-col :xs="20" :sm="11" :md="10">
                         <div>
                             {{job.JobTitle}}
-                            <a class="text-primary small px-1" target="blank" :href="`https://www.highpin.cn/job/b${job.JobID}.html`">
-                                详情
+                            <a class="text-primary small" target="blank" :href="`https://www.highpin.cn/job/b${job.JobID}.html`">
+                                <span class="hidden-xs-only px-1">详情</span>
                                 <i class="el-icon-info"></i>
                             </a>
                         </div>
                     </el-col>
-                    <el-col :span="4" class="hidden-sm-and-down">
-                        <div>{{job.AnnualSalaryMin}} - {{job.AnnualSalaryMax}}万</div>
+                    <el-col :xs="4" :sm="2">
+                        <div>{{job.AnnualSalaryMin}} - {{job.AnnualSalaryMax}}<span class="hidden-xs-only">万</span></div>
                     </el-col>
-                    <el-col :span="10" :md="8">
+                    <el-col :sm="11" :md="10" class="hidden-xs-only">
                         <div>{{job.CompanyName}}</div>
                     </el-col>
-                    <el-col :span="4" >
+                    <el-col :md="2" class="hidden-sm-and-down">
                         <div>{{job.PublishDate}}</div>
                     </el-col>
                 </el-row>
@@ -77,6 +77,46 @@ export default {
         showKeywords: {
             type: Boolean,
             default: true
+        },
+        /**
+         * {xs,sm,md,lg,xl}
+         */
+        span: {
+            type: Object,
+            required: true,
+        }
+    },
+    methods: {
+        calcSpan(name) {
+            const seq = ['xs','sm','md','lg','xl'];
+            if(this.span[name] !== undefined || this.span[name] !== null) {
+                return this.span[name];
+            }
+            let index = seq.indexOf(name);
+            for(--index;index>=0;index--) {
+                let spanWid = this.spanWid[seq[index]];
+                if(spanWid !== undefined || spanWid !== null) {
+                    return spanWid;
+                }
+            }
+            return 24;
+        }
+    },
+    computed: {
+        xs() {
+            return this.calcSpan('xs')
+        },
+        sm() {
+            return this.calcSpan('sm')
+        },
+        md() {
+            return this.calcSpan('md')
+        },
+        lg() {
+            return this.calcSpan('lg')
+        },
+        xl() {
+            return this.calcSpan('xl')
         }
     }
 };

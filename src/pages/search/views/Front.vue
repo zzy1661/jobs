@@ -38,6 +38,13 @@ import JobCollapse from "@/components/JobCollapse.vue";
 import jobMixin from '../mixin/jobMixin.js';
 export default {
     name: "front",
+    data() {
+        return {
+            span: {
+                
+            }
+        }
+    },
     mixins: [jobMixin],
     mounted() {
         this.getFrontJobs();

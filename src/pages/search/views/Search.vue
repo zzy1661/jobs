@@ -6,17 +6,17 @@
         </div>
         <div class="px-sm-4">
             <el-collapse v-model="activeName" accordion @change="onCollapseChange">
-                <el-row class="w-100 py-2 mx-0 pr-3 bg-light" :gutter="10">
-                    <el-col :span="10" :md="8">
+                <el-row class="w-100 py-2 mx-0 pr-3 bg-light" :gutter="0">
+                    <el-col :xs="20" :sm="11" :md="10">
                         <div>职位名称</div>
                     </el-col>
-                    <el-col :span="4" class="hidden-sm-and-down">
+                    <el-col :xs="4" :sm="2">
                         <div>年薪</div>
                     </el-col>
-                    <el-col :span="10" :md="8">
+                    <el-col :sm="11" :md="10" class="hidden-xs-only">
                         <div>公司</div>
                     </el-col>
-                    <el-col :span="4">
+                    <el-col :md="2" class="hidden-sm-and-down">
                         <div>发布日期</div>
                     </el-col>
                 </el-row>
@@ -45,7 +45,7 @@ export default {
     },
     mixins: [jobMixin],
     mounted() {
-        this.searchJobs();
+        // this.searchJobs();
     },
     methods: {
         searchJobs() {

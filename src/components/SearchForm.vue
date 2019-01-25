@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4">
+    <div class="px-1 px-sm-4">
         <el-form label-width="80px" class="search-form">
             <el-form-item label="地点" class="text-left">
                 <el-radio-group class="radio-group" v-model="form.JobLocation">
