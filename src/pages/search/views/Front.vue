@@ -40,9 +40,7 @@ export default {
     name: "front",
     data() {
         return {
-            span: {
-                
-            }
+            
         }
     },
     mixins: [jobMixin],

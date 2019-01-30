@@ -77,47 +77,13 @@ export default {
         showKeywords: {
             type: Boolean,
             default: true
-        },
-        /**
-         * {xs,sm,md,lg,xl}
-         */
-        span: {
-            type: Object,
-            required: true,
-        }
+        },    
     },
     methods: {
-        calcSpan(name) {
-            const seq = ['xs','sm','md','lg','xl'];
-            if(this.span[name] !== undefined || this.span[name] !== null) {
-                return this.span[name];
-            }
-            let index = seq.indexOf(name);
-            for(--index;index>=0;index--) {
-                let spanWid = this.spanWid[seq[index]];
-                if(spanWid !== undefined || spanWid !== null) {
-                    return spanWid;
-                }
-            }
-            return 24;
-        }
+        
     },
     computed: {
-        xs() {
-            return this.calcSpan('xs')
-        },
-        sm() {
-            return this.calcSpan('sm')
-        },
-        md() {
-            return this.calcSpan('md')
-        },
-        lg() {
-            return this.calcSpan('lg')
-        },
-        xl() {
-            return this.calcSpan('xl')
-        }
+        
     }
 };
 </script>
