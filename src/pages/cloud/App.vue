@@ -7,7 +7,6 @@
 
 <script>
 	import Cloud from '@/components/Cloud.vue'
-	console.log(Cloud)
 	export default {
 		name: 'app',
 		components: {
